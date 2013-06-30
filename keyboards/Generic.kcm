@@ -1,0 +1,705 @@
+# Copyright (C) 2010 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#
+# Generic key character map for full alphabetic US English PC style external keyboards.
+#
+# This file is intentionally very generic and is intended to support a broad rang of keyboards.
+# Do not edit the generic key character map to support a specific keyboard; instead, create
+# a new key character map file with the required keyboard configuration.
+#
+
+type FULL
+
+### Basic QWERTY keys ###
+
+key A {
+    label:                              'A'
+    base:                               'a'
+    shift, capslock:                    'A'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'a'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, alt, meta:                    none
+}
+
+key B {
+    label:                              'B'
+    base:                               'b'
+    shift, capslock:                    'B'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'b'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, alt, meta:                    none
+}
+
+key C {
+    label:                              'C'
+    base:                               'c'
+    shift, capslock:                    'C'
+    alt:                                '\u00e7'
+    shift+alt:                          '\u00c7'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'c'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, meta:                         none
+}
+
+key D {
+    label:                              'D'
+    base:                               'd'
+    shift, capslock:                    'D'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'd'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, alt, meta:                    none
+}
+
+key E {
+    label:                              'E'
+    base:                               'e'
+    shift, capslock:                    'E'
+    alt:                                '\u0301'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'e'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, meta:                         none
+}
+
+key F {
+    label:                              'F'
+    base:                               'f'
+    shift, capslock:                    'F'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'f'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, alt, meta:                    none
+}
+
+key G {
+    label:                              'G'
+    base:                               'g'
+    shift, capslock:                    'G'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'g'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, alt, meta:                    none
+}
+
+key H {
+    label:                              'H'
+    base:                               'h'
+    shift, capslock:                    'H'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'h'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, alt, meta:                    none
+}
+
+key I {
+    label:                              'I'
+    base:                               'i'
+    shift, capslock:                    'I'
+    alt:                                '\u0302'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'i'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, meta:                         none
+}
+
+key J {
+    label:                              'J'
+    base:                               'j'
+    shift, capslock:                    'J'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'j'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, alt, meta:                    none
+}
+
+key K {
+    label:                              'K'
+    base:                               'k'
+    shift, capslock:                    'K'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'k'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, alt, meta:                    none
+}
+
+key L {
+    label:                              'L'
+    base:                               'l'
+    shift, capslock:                    'L'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'l'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, alt, meta:                    none
+}
+
+key M {
+    label:                              'M'
+    base:                               'm'
+    shift, capslock:                    'M'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'm'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, alt, meta:                    none
+}
+
+key N {
+    label:                              'N'
+    base:                               'n'
+    shift, capslock:                    'N'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'n'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    alt:                                '\u0303'
+}
+
+key O {
+    label:                              'O'
+    base:                               'o'
+    shift, capslock:                    'O'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'o'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, alt, meta:                    none
+}
+
+key P {
+    label:                              'P'
+    base:                               'p'
+    shift, capslock:                    'P'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'p'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, alt, meta:                    none
+}
+
+key Q {
+    label:                              'Q'
+    base:                               'q'
+    shift, capslock:                    'Q'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'q'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, alt, meta:                    none
+}
+
+key R {
+    label:                              'R'
+    base:                               'r'
+    shift, capslock:                    'R'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'r'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, alt, meta:                    none
+}
+
+key S {
+    label:                              'S'
+    base:                               's'
+    shift, capslock:                    'S'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     's'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    alt:                                '\u00df'
+}
+
+key T {
+    label:                              'T'
+    base:                               't'
+    shift, capslock:                    'T'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     't'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, alt, meta:                    none
+}
+
+key U {
+    label:                              'U'
+    base:                               'u'
+    shift, capslock:                    'U'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'u'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    alt:                                '\u0308'
+}
+
+key V {
+    label:                              'V'
+    base:                               'v'
+    shift, capslock:                    'V'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'v'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, alt, meta:                    none
+}
+
+key W {
+    label:                              'W'
+    base:                               'w'
+    shift, capslock:                    'W'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'w'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, alt, meta:                    none
+}
+
+key X {
+    label:                              'X'
+    base:                               'x'
+    shift, capslock:                    'X'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'x'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, alt, meta:                    none
+}
+
+key Y {
+    label:                              'Y'
+    base:                               'y'
+    shift, capslock:                    'Y'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'y'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, alt, meta:                    none
+}
+
+key Z {
+    label:                              'Z'
+    base:                               'z'
+    shift, capslock:                    'Z'
+#<DTS2012070405042 l00190626 add shift+capslock character map, begin
+    shift+capslock:                     'z'
+#DTS2012070405042 l00190626 add shift+capslock character map, end >
+    ctrl, alt, meta:                    none
+}
+
+key 0 {
+    label:                              '0'
+    base:                               '0'
+    shift:                              ')'
+}
+
+key 1 {
+    label:                              '1'
+    base:                               '1'
+    shift:                              '!'
+}
+
+key 2 {
+    label:                              '2'
+    base:                               '2'
+    shift:                              '@'
+}
+
+key 3 {
+    label:                              '3'
+    base:                               '3'
+    shift:                              '#'
+}
+
+key 4 {
+    label:                              '4'
+    base:                               '4'
+    shift:                              '$'
+}
+
+key 5 {
+    label:                              '5'
+    base:                               '5'
+    shift:                              '%'
+}
+
+key 6 {
+    label:                              '6'
+    base:                               '6'
+    shift:                              '^'
+    alt+shift:                          '\u0302'
+}
+
+key 7 {
+    label:                              '7'
+    base:                               '7'
+    shift:                              '&'
+}
+
+key 8 {
+    label:                              '8'
+    base:                               '8'
+    shift:                              '*'
+}
+
+key 9 {
+    label:                              '9'
+    base:                               '9'
+    shift:                              '('
+}
+
+key SPACE {
+    label:                              ' '
+    base:                               ' '
+    alt, meta:                          fallback SEARCH
+    ctrl:                               fallback LANGUAGE_SWITCH
+}
+
+key ENTER {
+    label:                              '\n'
+    base:                               '\n'
+}
+
+key TAB {
+    label:                              '\t'
+    base:                               '\t'
+}
+
+key COMMA {
+    label:                              ','
+    base:                               ','
+    shift:                              '<'
+}
+
+key PERIOD {
+    label:                              '.'
+    base:                               '.'
+    shift:                              '>'
+}
+
+key SLASH {
+    label:                              '/'
+    base:                               '/'
+    shift:                              '?'
+}
+
+key GRAVE {
+    label:                              '`'
+    base:                               '`'
+    shift:                              '~'
+    alt:                                '\u0300'
+    alt+shift:                          '\u0303'
+}
+
+key MINUS {
+    label:                              '-'
+    base:                               '-'
+    shift:                              '_'
+}
+
+key EQUALS {
+    label:                              '='
+    base:                               '='
+    shift:                              '+'
+}
+
+key LEFT_BRACKET {
+    label:                              '['
+    base:                               '['
+    shift:                              '{'
+}
+
+key RIGHT_BRACKET {
+    label:                              ']'
+    base:                               ']'
+    shift:                              '}'
+}
+
+key BACKSLASH {
+    label:                              '\\'
+    base:                               '\\'
+    shift:                              '|'
+}
+
+key SEMICOLON {
+    label:                              ';'
+    base:                               ';'
+    shift:                              ':'
+}
+
+key APOSTROPHE {
+    label:                              '\''
+    base:                               '\''
+    shift:                              '"'
+}
+
+### Numeric keypad ###
+
+key NUMPAD_0 {
+    label:                              '0'
+    base:                               fallback INSERT
+    numlock:                            '0'
+}
+
+key NUMPAD_1 {
+    label:                              '1'
+    base:                               fallback MOVE_END
+    numlock:                            '1'
+}
+
+key NUMPAD_2 {
+    label:                              '2'
+    base:                               fallback DPAD_DOWN
+    numlock:                            '2'
+}
+
+key NUMPAD_3 {
+    label:                              '3'
+    base:                               fallback PAGE_DOWN
+    numlock:                            '3'
+}
+
+key NUMPAD_4 {
+    label:                              '4'
+    base:                               fallback DPAD_LEFT
+    numlock:                            '4'
+}
+
+key NUMPAD_5 {
+    label:                              '5'
+    base:                               fallback DPAD_CENTER
+    numlock:                            '5'
+}
+
+key NUMPAD_6 {
+    label:                              '6'
+    base:                               fallback DPAD_RIGHT
+    numlock:                            '6'
+}
+
+key NUMPAD_7 {
+    label:                              '7'
+    base:                               fallback MOVE_HOME
+    numlock:                            '7'
+}
+
+key NUMPAD_8 {
+    label:                              '8'
+    base:                               fallback DPAD_UP
+    numlock:                            '8'
+}
+
+key NUMPAD_9 {
+    label:                              '9'
+    base:                               fallback PAGE_UP
+    numlock:                            '9'
+}
+
+key NUMPAD_LEFT_PAREN {
+    label:                              '('
+    base:                               '('
+}
+
+key NUMPAD_RIGHT_PAREN {
+    label:                              ')'
+    base:                               ')'
+}
+
+key NUMPAD_DIVIDE {
+    label:                              '/'
+    base:                               '/'
+}
+
+key NUMPAD_MULTIPLY {
+    label:                              '*'
+    base:                               '*'
+}
+
+key NUMPAD_SUBTRACT {
+    label:                              '-'
+    base:                               '-'
+}
+
+key NUMPAD_ADD {
+    label:                              '+'
+    base:                               '+'
+}
+
+key NUMPAD_DOT {
+    label:                              '.'
+    base:                               fallback FORWARD_DEL
+    numlock:                            '.'
+}
+
+key NUMPAD_COMMA {
+    label:                              ','
+    base:                               ','
+}
+
+key NUMPAD_EQUALS {
+    label:                              '='
+    base:                               '='
+}
+
+key NUMPAD_ENTER {
+    label:                              '\n'
+    base:                               '\n' fallback ENTER
+    ctrl, alt, meta:                    none fallback ENTER
+}
+
+### Special keys on phones ###
+
+key AT {
+    label:                              '@'
+    base:                               '@'
+}
+
+key STAR {
+    label:                              '*'
+    base:                               '*'
+}
+
+key POUND {
+    label:                              '#'
+    base:                               '#'
+}
+
+key PLUS {
+    label:                              '+'
+    base:                               '+'
+}
+
+### Non-printing keys ###
+
+key ESCAPE {
+    base:                               fallback BACK
+    alt, meta:                          fallback HOME
+    ctrl:                               fallback MENU
+}
+
+### Gamepad buttons ###
+
+key BUTTON_A {
+    base:                               fallback BACK
+}
+
+key BUTTON_B {
+    base:                               fallback BACK
+}
+
+key BUTTON_C {
+    base:                               fallback BACK
+}
+
+key BUTTON_X {
+    base:                               fallback DPAD_CENTER
+}
+
+key BUTTON_Y {
+    base:                               fallback DPAD_CENTER
+}
+
+key BUTTON_Z {
+    base:                               fallback DPAD_CENTER
+}
+
+key BUTTON_L1 {
+    base:                               none
+}
+
+key BUTTON_R1 {
+    base:                               none
+}
+
+key BUTTON_L2 {
+    base:                               none
+}
+
+key BUTTON_R2 {
+    base:                               none
+}
+
+key BUTTON_THUMBL {
+    base:                               fallback DPAD_CENTER
+}
+
+key BUTTON_THUMBR {
+    base:                               fallback DPAD_CENTER
+}
+
+key BUTTON_START {
+    base:                               fallback HOME
+}
+
+key BUTTON_SELECT {
+    base:                               fallback MENU
+}
+
+key BUTTON_MODE {
+    base:                               fallback MENU
+}
+
+key BUTTON_1 {
+    base:                               fallback DPAD_CENTER
+}
+
+key BUTTON_2 {
+    base:                               fallback DPAD_CENTER
+}
+
+key BUTTON_3 {
+    base:                               fallback DPAD_CENTER
+}
+
+key BUTTON_4 {
+    base:                               fallback DPAD_CENTER
+}
+
+key BUTTON_5 {
+    base:                               fallback DPAD_CENTER
+}
+
+key BUTTON_6 {
+    base:                               fallback DPAD_CENTER
+}
+
+key BUTTON_7 {
+    base:                               fallback DPAD_CENTER
+}
+
+key BUTTON_8 {
+    base:                               fallback DPAD_CENTER
+}
+
+key BUTTON_9 {
+    base:                               fallback DPAD_CENTER
+}
+
+key BUTTON_10 {
+    base:                               fallback DPAD_CENTER
+}
+
+key BUTTON_11 {
+    base:                               fallback DPAD_CENTER
+}
+
+key BUTTON_12 {
+    base:                               fallback DPAD_CENTER
+}
+
+key BUTTON_13 {
+    base:                               fallback DPAD_CENTER
+}
+
+key BUTTON_14 {
+    base:                               fallback DPAD_CENTER
+}
+
+key BUTTON_15 {
+    base:                               fallback DPAD_CENTER
+}
+
+key BUTTON_16 {
+    base:                               fallback DPAD_CENTER
+}

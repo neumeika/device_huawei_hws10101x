@@ -1,0 +1,283 @@
+# /*< DTS00179244020201 begin: created by caomingxing for usb switch 2012-02-02 >*/
+#
+# init.hi3620.usb.rc
+#
+
+on boot
+# set cdrom iso
+#/*< DTS2012061505715 begin: modified by kf57825 2012-06-15 >*/
+    setprop sys.ums.path /data/cust/etc/cd.iso
+#/*< DTS2012061505715 end: modified by kf57825 2012-06-15 >*/
+
+# enable usb rndis function
+    write /sys/class/android_usb/android0/f_rndis/wceis 1
+
+# Used to disable USB when switching states
+on property:sys.usb.config=none
+    stop adbd
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/bDeviceClass 0
+    setprop sys.usb.state ${sys.usb.config}
+
+# adb only USB configuration
+# This should only be used during device bringup
+# and as a fallback if the USB manager fails to set a standard configuration
+on property:sys.usb.config=adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12d1
+    write /sys/class/android_usb/android0/idProduct 360B
+    write /sys/class/android_usb/android0/functions ${sys.usb.config}
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.state ${sys.usb.config}
+    
+#/* BEGIN: DTS2012111701741  Modified by c00217097 for mass_storage and Hisuite Switch when SDcard is Insert, 2012/12/08 */
+# USB mass_storage configuration
+on property:sys.usb.config=mass_storage
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12D1
+    write /sys/class/android_usb/android0/idProduct 361E
+    write /sys/class/android_usb/f_mass_storage/luns sdcard
+    write /sys/class/android_usb/f_mass_storage/lun/file none
+    write /sys/class/android_usb/android0/functions ${sys.usb.config}
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state ${sys.usb.config}
+    
+# USB mass_storage configuration, with adb
+on property:sys.usb.config=mass_storage,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12D1
+    write /sys/class/android_usb/android0/idProduct 360E
+    write /sys/class/android_usb/f_mass_storage/luns sdcard
+    write /sys/class/android_usb/f_mass_storage/lun/file none
+    write /sys/class/android_usb/android0/functions ${sys.usb.config}
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.state ${sys.usb.config}
+    
+# USB mass_storage configuration
+on property:sys.usb.config=mass_storage_cdrom
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12D1
+    write /sys/class/android_usb/android0/idProduct 361E  
+    write /sys/class/android_usb/android0/functions mass_storage
+    write /sys/class/android_usb/f_mass_storage/luns cdrom
+    write /sys/class/android_usb/f_mass_storage/lun/file ${sys.ums.path}   
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state ${sys.usb.config}
+
+# USB hisuite configuration
+on property:sys.usb.config=mass_storage_cdrom,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12D1
+    write /sys/class/android_usb/android0/idProduct 360E     
+    write /sys/class/android_usb/android0/functions mass_storage,adb
+    write /sys/class/android_usb/f_mass_storage/luns cdrom    
+    write /sys/class/android_usb/f_mass_storage/lun/file ${sys.ums.path}
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.state ${sys.usb.config}
+#/* End: DTS2012111701741  Modified by c00217097 for mass_storage and Hisuite Switch when SDcard is Insert, 2012/12/08 */
+
+# USB mtp configuration
+on property:sys.usb.config=mtp
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12D1
+    write /sys/class/android_usb/android0/idProduct 361F
+    write /sys/class/android_usb/android0/functions ${sys.usb.config}
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state ${sys.usb.config}
+
+# USB mtp configuration, with adb
+on property:sys.usb.config=mtp,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12D1
+    write /sys/class/android_usb/android0/idProduct 360F
+    write /sys/class/android_usb/android0/functions ${sys.usb.config}
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.state ${sys.usb.config}
+
+# /*< DTS00176579020501 begin: modify by w00176579 for usb pid >*/
+# USB ptp configuration
+on property:sys.usb.config=ptp
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12D1
+    write /sys/class/android_usb/android0/idProduct 361A
+    write /sys/class/android_usb/android0/functions ${sys.usb.config}
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state ${sys.usb.config}
+
+# USB ptp configuration, with adb
+on property:sys.usb.config=ptp,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12D1
+    write /sys/class/android_usb/android0/idProduct 360A
+    write /sys/class/android_usb/android0/functions ${sys.usb.config}
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.state ${sys.usb.config}
+# /*< DTS00176579020501 end: modify by w00176579 for usb pid >*/
+
+# USB rndis configuration
+on property:sys.usb.config=rndis
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12D1
+    write /sys/class/android_usb/android0/idProduct 3628
+    write /sys/class/android_usb/android0/functions ${sys.usb.config}
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state ${sys.usb.config}
+
+# USB rndis configuration, with adb
+on property:sys.usb.config=rndis,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12D1
+    write /sys/class/android_usb/android0/idProduct 3618
+    write /sys/class/android_usb/android0/functions ${sys.usb.config}
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.state ${sys.usb.config}
+
+# USB accessory configuration
+on property:sys.usb.config=accessory
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 18d1
+    write /sys/class/android_usb/android0/idProduct 2d00
+    write /sys/class/android_usb/android0/functions ${sys.usb.config}
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state ${sys.usb.config}
+
+# USB accessory configuration, with adb
+on property:sys.usb.config=accessory,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 18d1
+    write /sys/class/android_usb/android0/idProduct 2d01
+    write /sys/class/android_usb/android0/functions ${sys.usb.config}
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.state ${sys.usb.config}
+
+# /* < DTS00197677033001 begin: added by huangxingchuan  h00197677 for ap_modem_bridge module 2012-03-30 >*/
+# /*< DTS00197677021301 begin: added by huangxingchuan for usb serial function 2012-02-13 >*/
+
+on property:sys.usb.config=vcom
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12d1
+    write /sys/class/android_usb/android0/idProduct 3660
+    write /sys/class/android_usb/android0/f_acm/instances 1
+    write /sys/class/android_usb/android0/f_acm/acm_enable 0
+    write /sys/class/android_usb/android0/functions acm
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=vcom,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12d1
+    write /sys/class/android_usb/android0/idProduct 3650
+    write /sys/class/android_usb/android0/f_acm/instances 1
+    write /sys/class/android_usb/android0/f_acm/acm_enable 0
+    write /sys/class/android_usb/android0/functions acm,adb
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.state ${sys.usb.config}
+on property:sys.usb.config=vcom,modem
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12d1
+    write /sys/class/android_usb/android0/idProduct 3661
+    write /sys/class/android_usb/android0/f_acm/instances 2 
+    write /sys/class/android_usb/android0/f_acm/acm_enable 0
+    write /sys/class/android_usb/android0/functions acm
+    write /sys/class/android_usb/android0/enable 1
+    start ap_modem_bridge
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=vcom,modem,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12d1
+    write /sys/class/android_usb/android0/idProduct 3651
+    write /sys/class/android_usb/android0/f_acm/instances 2 
+    write /sys/class/android_usb/android0/f_acm/acm_enable 0
+    write /sys/class/android_usb/android0/functions acm,adb
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    start ap_modem_bridge
+    setprop sys.usb.state ${sys.usb.config}
+# /*< DTS00197677021301 end: added by huangxingchuan for usb serial function 2012-02-13 >*/
+# /* < DTS00197677033001 end: added by huangxingchuan  h00197677 for ap_modem_bridge module 2012-03-30 >*/
+
+#/*< DTS2012041204213 begin: added by w00176579 for OM debug functions of Modem 2012-04-12 >*/
+# USB vcom,modem,om configuration, with adb
+on property:sys.usb.config=vcom,modem,om
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12D1
+    write /sys/class/android_usb/android0/idProduct 3662
+    write /sys/class/android_usb/android0/f_acm/instances 3
+    write /sys/class/android_usb/android0/f_acm/acm_enable 0
+    write /sys/class/android_usb/android0/functions acm
+    write /sys/class/android_usb/android0/enable 1
+#/*< DTS2012072302901 begin: added by h00197677 for OM debug functions of Modem 2012-07-23 >*/
+    start ap_modem_bridge
+#/*< DTS2012072302901 end: added by h00197677 for OM debug functions of Modem 2012-07-23 >*/
+#    start OM_USB
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=vcom,modem,om,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12D1
+    write /sys/class/android_usb/android0/idProduct 3652
+    write /sys/class/android_usb/android0/f_acm/instances 3
+    write /sys/class/android_usb/android0/f_acm/acm_enable 0
+    write /sys/class/android_usb/android0/functions acm,adb
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+#/*< DTS2012072302901 begin: added by h00197677 for OM debug functions of Modem 2012-07-23 >*/
+    start ap_modem_bridge
+#/*< DTS2012072302901 end: added by h00197677 for OM debug functions of Modem 2012-07-23 >*/
+#    start OM_USB
+    setprop sys.usb.state ${sys.usb.config}
+#/*< DTS2012041204213 end: added by w00176579 for OM debug functions of Modem 2012-04-12 >*/
+
+# Begin: DTS2012113004209 modified by l81004140 for usb OM.
+# USB vcom,modem,om configuration, with adb
+on property:sys.usb.config=vcom,modem,om,lteom
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12D1
+    write /sys/class/android_usb/android0/idProduct 3663
+    write /sys/class/android_usb/android0/f_acm/instances 5
+    write /sys/class/android_usb/android0/f_acm/acm_enable 0
+    write /sys/class/android_usb/android0/functions acm
+    write /sys/class/android_usb/android0/enable 1
+    start ap_modem_bridge
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=vcom,modem,om,lteom,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12D1
+    write /sys/class/android_usb/android0/idProduct 3653
+    write /sys/class/android_usb/android0/f_acm/instances 5
+    write /sys/class/android_usb/android0/f_acm/acm_enable 0
+    write /sys/class/android_usb/android0/functions acm,adb
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    start ap_modem_bridge
+    setprop sys.usb.state ${sys.usb.config}
+# End: DTS2012113004209 modified by l81004140 for usb OM.
+
+# Used to set USB configuration at boot and to switch the configuration
+# when changing the default configuration
+on property:persist.sys.usb.config=*
+    setprop sys.usb.config $persist.sys.usb.config
+
+# This property trigger has added to imitiate the previous behavior of "adb root".
+# The adb gadget driver used to reset the USB bus when the adbd daemon exited,
+# and the host side adb relied on this behavior to force it to reconnect with the
+# new adbd instance after init relaunches it. So now we force the USB bus to reset
+# here when adbd sets the service.adb.root property to 1.  We also restart adbd here
+# rather than waiting for init to notice its death and restarting it so the timing
+# of USB resetting and adb restarting more closely matches the previous behavior.
+on property:service.adb.root=1
+    write /sys/class/android_usb/android0/enable 0
+    restart adbd
+    write /sys/class/android_usb/android0/enable 1
+
+# /*< DTS00179244020201 end: created by caomingxing for usb switch 2012-02-02 >*/

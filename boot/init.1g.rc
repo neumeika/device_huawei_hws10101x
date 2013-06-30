@@ -1,0 +1,9 @@
+#/* <DTS2012051400087 modify by liyaobing for surport 1G RAM memory, begin 2012/5/15 */
+on swapfile_create
+    class_start swapfile_create
+service create_swapfile /system/bin/sh /system/etc/memsave.sh
+    class swapfile_create
+    user root
+    group root
+    oneshot
+#/* <DTS2012051400087 modify by liyaobing for surport 1G RAM memory, end 2012/5/15 */

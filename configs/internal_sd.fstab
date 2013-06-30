@@ -1,0 +1,30 @@
+## Vold 2.0 Generic fstab
+## - San Mehat (san@android.com)
+##
+
+#######################
+## Regular device mount
+##
+## Format: dev_mount <label> <mount_point> <part> <sysfs_path1...>
+## label        - Label for the volume
+## mount_point  - Where the volume will be mounted
+## part         - Partition # (1 based), or 'auto' for first usable partition.
+## <sysfs_path> - List of sysfs paths to source devices
+######################
+
+## Example of a standard sdcard mount for the emulator / Dream
+# Mounts the first usable partition of the specified device
+#Begin: DTS2012120400562 Modified by x00186870, 2012/12/4 for multi partition
+#DTS2012012001091	w00177577	2012/01/20	rm external primary
+#DTS2011121600087 w00177577	2011/12/28 ics dual sdcard
+#DTS2012051401548 k00195289 add otg
+#DTS2012083100452 y00173682 20120831 modify the mount point to follow the J changes
+dev_mount sdcard /storage/sdcard0 fuse
+dev_mount sdcard2 /storage/sdcard1 auto /devices/platform/hi_mci.0/mmc_host/mmc1
+#Begin:DTS2012061405785 added by l00170072 for docked usb support on 20120616
+dev_mount usbtip1 /mnt/usb/usb1 auto /devices/hisik3-usb-otg/usb1/1-1/1-1.2
+dev_mount usbtip2 /mnt/usb/usb2 auto /devices/hisik3-usb-otg/usb1/1-1/1-1.4 /devices/hisik3-usb-otg/usb1/1-1/1-1.1
+#End:DTS2012061405785 added by l00170072 for docked usb support on 20120616
+#End: DTS2012120400562 Modified by x00186870, 2012/12/4 for multi partition
+dev_mount usbotg /mnt/usb auto /devices/hisik3-usb-otg/usb1
+

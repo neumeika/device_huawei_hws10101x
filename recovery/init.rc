@@ -1,0 +1,257 @@
+on early-init
+    start ueventd
+
+on init
+    export PATH /sbin
+    export PATH /sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
+    export LD_LIBRARY_PATH /vendor/lib:/system/lib
+    export ANDROID_ROOT /system
+    export ANDROID_DATA /data
+    #/*Begin:DTS2012101902063 modify by z81003560 update Upgrade-system to JellyBean,20121019*/
+    export EXTERNAL_STORAGE /mnt/sdcard2
+    #/*End:DTS2012101902063 modify by z81003560 update Upgrade-system to JellyBean,20121019*/
+    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar:/system/framework/filterfw.jar
+
+    symlink /system/etc /etc
+
+# Right now vendor lives on the same filesystem as system,
+# but someday that may change.
+    symlink /system/vendor /vendor
+/*Begin:DTS2012101902063 modify by z81003560 update Upgrade-system to JellyBean,20121019*/
+    mkdir /mnt
+    mkdir /mnt/sdcard2
+
+    mkdir /system
+    mkdir /data
+    
+    mkdir /modem  0777 root root
+    mkdir /modem/modem_image  0777 root root
+    mkdir /modem/nvm1  0777 root root
+    mkdir /modem/nvm2  0777 root root
+    chown system system /dev/cpuctl
+    chown system system /dev/cpuctl/tasks
+    mkdir /cache
+    write /sys/module/block2mtd/parameters/block2mtd /dev/block/mmcblk0p3
+    mount /tmp /tmp tmpfs
+    # change nve device visit permission
+    wait /dev/nve0
+    chmod 0777 /dev/nve0
+    
+on fs
+    mount ext4 /dev/block/mmcblk0p16 /system
+    mount ext4 /dev/block/mmcblk0p16 /system rw remount
+  # Begin DTS2012120303107  Added by c00217097 for encrypt function, 2012/11/30
+    start vold
+  # End DTS2012120303107  Added by c00217097 for encrypt function, 2012/11/30
+    mount ext4 /dev/block/mmcblk0p15 /cache
+    mount vfat /dev/block/platform/hi_mci.0/mmcblk1p1 /mnt/sdcard2
+
+
+    mount ext4 /dev/block/mmcblk0p12 /modem/modem_image
+    mount ext4 /dev/block/mmcblk0p13 /modem/nvm1
+    mount ext4 /dev/block/mmcblk0p14 /modem/nvm2
+    #/*Begin: DTS2012121206147 modify by c00217097 for balong flashless modem*/
+    # set up cp-log dir
+    mkdir /data/cp-log/ 0740 radio radio
+
+    mkdir /modem/nvm1/SC/ 0740 radio radio
+    mkdir /modem/nvm1/SC/Pers/ 0740 radio radio
+    mkdir /modem/nvm1/SC/Apsec/ 0740 radio radio
+
+    mkdir /modem/nvm2/nv_bak 0740 radio radio
+    chmod 0777 /modem/
+    chmod 0777 /modem/*
+    chmod 0777 /modem/modem_image
+    chmod 0740 /modem/modem_image/balong
+    chmod 0740 /modem/modem_image/balong/NV
+    chmod 0740 /modem/modem_image/balong/ZSP
+    chmod 0777 /modem/modem_image/*
+    chmod 0777 /modem/nvm1/*
+    chmod 0777 /modem/nvm2/*
+    chmod 0740 /modem/nvm2/nv_bak
+    chmod 0640 /modem/nvm1/NV.HNV
+    chmod 0640 /modem/nvm1/Nvim.bin
+    chmod 0640 /modem/nvm1/lte_xnv.xml
+    chmod 0640 /modem/nvm1/xnv.xml
+    chmod 0640 /modem/nvm1/nv_updated
+    chmod 0640 /modem/nvm2/nv_bak/NV.HNV
+    chmod 0640 /modem/nvm2/nv_bak/Nvim.bin
+    chmod 0640 /modem/nvm2/nv_bak/lte_xnv.xml
+    chmod 0640 /modem/nvm2/nv_bak/xnv.xml
+    chmod 0640 /modem/modem_image/balong/bootloader_test.BIN
+    chmod 0640 /modem/modem_image/balong/nv_updated
+    chmod 0640 /modem/modem_image/balong/modem_updated
+    chmod 0640 /modem/modem_image/balong/NV/NV.HNV
+    chmod 0640 /modem/modem_image/balong/NV/Nvim.bin
+    chmod 0640 /modem/modem_image/balong/NV/lte_xnv.xml
+    chmod 0640 /modem/modem_image/balong/NV/xnv.xml
+    chmod 0640 /modem/modem_image/balong/ZSP/a.bin
+    chmod 0640 /modem/modem_image/balong/ZSP/d.bin
+    chmod 0640 /modem/modem_image/balong/ZSP/dsp1.bin
+    chmod 0640 /modem/modem_image/balong/ZSP/dspCofCfg.bin
+    chmod 0640 /modem/modem_image/balong/ZSP/dyn.bin
+    chmod 0640 /modem/modem_image/balong/ZSP/hifi.bin
+    chmod 0640 /modem/modem_image/balong/ZSP/i.bin
+    chmod 0640 /modem/modem_image/balong/ZSP/r.bin
+    chmod 0640 /modem/modem_image/balong/ZSP/s.bin
+    chmod 0640 /modem/modem_image/balong/ZSP/tensilica_app.bin
+    chmod 0640 /modem/modem_image/balong/ZSP/ZSP.bin
+    chmod 0640 /data/cp-log/a.bin
+    chmod 0640 /data/cp-log/d.bin
+    chmod 0640 /data/cp-log/dsp1.bin
+    chmod 0640 /data/cp-log/dspCofCfg.bin
+    chmod 0640 /data/cp-log/dyn.bin
+    chmod 0640 /data/cp-log/hifi.bin
+    chmod 0640 /data/cp-log/i.bin
+    chmod 0640 /data/cp-log/r.bin
+    chmod 0640 /data/cp-log/s.bin
+    chmod 0640 /data/cp-log/tensilica_app.bin
+    chmod 0640 /data/cp-log/ZSP.bin
+    chmod 0640 /modem/modem_image/HWT6260_2.fls
+    chmod 0640 /modem/nvm1/flag
+    chmod 0640 /modem/nvm1/firmware.md5
+    chmod 0640 /modem/nvm1/calib.nvm
+    chmod 0640 /modem/nvm1/dynamic.nvm
+    chmod 0640 /modem/nvm1/static.nvm
+    chmod 0640 /modem/nvm2/calib.nvm
+    chmod 0640 /modem/nvm2/dynamic.nvm
+    chmod 0640 /modem/nvm2/static.nvm
+    chown radio radio /modem/
+    chown radio radio /modem/nvm1
+    chown radio radio /modem/nvm2
+    chown radio radio /modem/nvm2/nv_bak
+    chmod 0740 /modem/nvm2/nv_bak
+    chown radio radio /modem/nvm1/NV.HNV
+    chown radio radio /modem/nvm1/Nvim.bin
+    chown radio radio /modem/nvm1/lte_xnv.xml
+    chown radio radio /modem/nvm1/xnv.xml
+    chown radio radio /modem/nvm1/nv_updated
+    chown radio radio /modem/nvm2/nv_bak/NV.HNV
+    chown radio radio /modem/nvm2/nv_bak/Nvim.bin
+    chown radio radio /modem/nvm2/nv_bak/lte_xnv.xml
+    chown radio radio /modem/nvm2/nv_bak/xnv.xml
+    chown radio radio /modem/modem_image
+    chown radio radio /modem/modem_image/balong/
+    chown radio radio /modem/modem_image/balong/NV
+    chown radio radio /modem/modem_image/balong/ZSP
+    chown radio radio /modem/modem_image/mtk6252
+    chown radio radio /modem/modem_image/qsc6085
+    chown radio radio /modem/modem_image/xmm6260
+    chown radio radio /modem/modem_image/balong/bootloader_test.BIN
+    chown radio radio /modem/modem_image/balong/nv_updated
+    chown radio radio /modem/modem_image/balong/modem_updated
+    chown radio radio /modem/modem_image/balong/NV/NV.HNV
+    chown radio radio /modem/modem_image/balong/NV/Nvim.bin
+    chown radio radio /modem/modem_image/balong/NV/lte_xnv.xml
+    chown radio radio /modem/modem_image/balong/NV/xnv.xml
+    chown radio radio /modem/modem_image/balong/ZSP/a.bin
+    chown radio radio /modem/modem_image/balong/ZSP/d.bin
+    chown radio radio /modem/modem_image/balong/ZSP/dsp1.bin
+    chown radio radio /modem/modem_image/balong/ZSP/dspCofCfg.bin
+    chown radio radio /modem/modem_image/balong/ZSP/dyn.bin
+    chown radio radio /modem/modem_image/balong/ZSP/hifi.bin
+    chown radio radio /modem/modem_image/balong/ZSP/i.bin
+    chown radio radio /modem/modem_image/balong/ZSP/r.bin
+    chown radio radio /modem/modem_image/balong/ZSP/s.bin
+    chown radio radio /modem/modem_image/balong/ZSP/tensilica_app.bin
+    chown radio radio /modem/modem_image/balong/ZSP/ZSP.bin
+    chown radio radio /data/cp-log/a.bin
+    chown radio radio /data/cp-log/d.bin
+    chown radio radio /data/cp-log/dsp1.bin
+    chown radio radio /data/cp-log/dspCofCfg.bin
+    chown radio radio /data/cp-log/dyn.bin
+    chown radio radio /data/cp-log/hifi.bin
+    chown radio radio /data/cp-log/i.bin
+    chown radio radio /data/cp-log/r.bin
+    chown radio radio /data/cp-log/s.bin
+    chown radio radio /data/cp-log/tensilica_app.bin
+    chown radio radio /data/cp-log/ZSP.bin
+    chown radio radio /modem/modem_image/HWT6260_2.fls
+    chown radio radio /modem/nvm1/flag
+    chown radio radio /modem/nvm1/firmware.md5
+    chown radio radio /modem/nvm1/calib.nvm
+    chown radio radio /modem/nvm1/dynamic.nvm
+    chown radio radio /modem/nvm1/static.nvm
+    chown radio radio /modem/nvm2/calib.nvm
+    chown radio radio /modem/nvm2/dynamic.nvm
+    chown radio radio /modem/nvm2/static.nvm
+    /dev/ttyUSB1   0777   root  root
+    /dev/ttyUSB0   0777   root  root
+    /dev/ttyACM0   0777   root  root
+    /dev/ttyACM1   0777   root  root
+    /dev/ttyACM2   0777   root  root
+    /dev/ttyACM3   0777   root  root
+    chmod 0777 /cache/recovery
+    #/*End: DTS2012121206147 modify by c00217097 for balong flashless modem*/
+on boot
+
+    ifup lo
+    hostname localhost
+    domainname localdomain
+
+    write /sys/devices/system/cpu/cpu1/online 0
+    write /sys/devices/platform/ipps-v2.0/mcu "I 64"
+    write /sys/devices/platform/ipps-v2.0/mcu "I 112"
+    write /sys/devices/platform/ipps-v2.0/mcu "I 17"
+    write /sys/devices/platform/ipps-v2.0/mcu "I 49"
+
+    class_start default
+
+service ueventd /sbin/ueventd
+    critical
+
+service recovery /sbin/recovery
+
+# DTS2011082903260  r00186667 2011/08/30 added begin
+service chargeservice /sbin/chargeservice
+# DTS2011082903260  r00186667 2011/08/30 added end
+service adbd /sbin/adbd recovery
+    disabled
+
+# Always start adbd on userdebug and eng builds
+#/* < Begin: DTS00176579020401 modify by w00176579 for usb debug function in recovery mode > */
+on property:ro.debuggable=1
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 12D1
+    write /sys/class/android_usb/android0/idProduct 36DD
+    write /sys/class/android_usb/android0/functions adb
+    write /sys/class/android_usb/android0/enable 1
+    write /sys/class/android_usb/android0/iManufacturer $ro.product.manufacturer
+    write /sys/class/android_usb/android0/iProduct $ro.product.model
+    write /sys/class/android_usb/android0/iSerial $ro.serialno
+    start adbd
+#/* < End: DTS00176579020401 modify by w00176579 for usb debug function in recovery mode > */
+/*End:DTS2012101902063 modify by z81003560 update Upgrade-system to JellyBean,20121019*/
+# Restart adbd so it can run as root
+on property:service.adb.root=1
+    write /sys/class/android_usb/android0/enable 0
+    restart adbd
+    write /sys/class/android_usb/android0/enable 1
+
+service console /system/bin/sh
+    console
+
+service nvm-server /system/bin/nvm_server
+socket nvm-ctl stream 777 root root
+    user root
+    group root
+    oneshot
+
+service imc_poweron /system/bin/imc_poweron
+    user root
+#    group radio cache inet misc
+#    disabled
+    oneshot
+
+#DTS2011091800177 c00182898 ATcmd Server source upload begin
+service atcmdserver  /system/bin/atcmdserver
+    user root
+    oneshot
+#DTS2011091800177 c00182898 ATcmd Server source upload end
+
+# Begin DTS2012120303107  Added by c00217097 for encrypt function, 2012/11/30
+service vold /system/bin/vold
+    socket vold stream 0660 root mount
+    ioprio be 2
+    disable
+# End DTS2012120303107  Added by c00217097 for encrypt function, 2012/11/30
