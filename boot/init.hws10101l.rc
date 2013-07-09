@@ -27,29 +27,21 @@
 on early-init
 #DTS2012083100452 y00173682 20120831 modify the mount point to follow the J changes begin 
     export EXTERNAL_STORAGE /storage/sdcard0
-    #DTS2012031201734 k00195289 begin
     export SECONDARY_STORAGE /storage/sdcard1
     mkdir /storage 0775 system sdcard_r
     mkdir /storage/sdcard0 0000 system system
     mkdir /storage/sdcard1 0000 system system
-    #mkdir /mnt/sdcard 0000 system system #//has this cmd in file init.rc,so delete it. by wangdedong
-    # for backwards compatibility
     symlink /storage/sdcard0 /sdcard
     symlink /storage/sdcard0 /mnt/sdcard
     symlink /storage/sdcard1 /mnt/sdcard2
-#DTS2012083100452 y00173682 20120831 modify the mount point to follow the J changes end
     
-    #Begin:DTS2012082302426 added by w00181636 for create links for the 3rd part applications on 20121012
     symlink /mnt/sdcard2 /sdcard2
     symlink /mnt/sdcard2 /extsd
     symlink /mnt/sdcard2 /mnt/sdcard-ext
     symlink /mnt/sdcard2 /mnt/extsd
-    #End:DTS2012082302426 added by w00181636 for create links for the 3rd part applications on 20121012
     
-    #Begin:DTS2012061405785 added by l00170072 for docked usb support on 20120616
     mkdir /mnt/usb/usb1 0000 system system
     mkdir /mnt/usb/usb2 0000 system system
-    #End:DTS2012061405785 added by l00170072 for docked usb support on 20120616
 
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
@@ -57,23 +49,16 @@ on boot
     mount tmpfs tmpfs /data/peers mode=0700,gid=1000
     chown radio radio /data/peers
 
-    #maoshunli
     chmod 777 /dev/mtd/mtd1
-
-    #liaojimao
 
     chmod 777 /dev/HisiGE
     chmod 777 /dev/graphics/fb0
     chmod 777 /dev/galcore
     chmod 777 /dev/graphics/galcore
 
-    #caoyanhua
 	chown system system /sys/class/leds/lcd_backlight0/brightness
-# begin DTS2012051402300: change brightness to 664 
 	chmod 664 /sys/class/leds/lcd_backlight0/brightness
-# end DTS2012051402300: change brightness to 664 
 
-        #kf55108
         chown system system /sys/class/leds/red/delay_on
         chown system system /sys/class/leds/red/delay_off
         chown system system /sys/class/leds/green/delay_on
@@ -81,36 +66,25 @@ on boot
         chown system system /sys/class/leds/blue/delay_on
         chown system system /sys/class/leds/blue/delay_off
 
-    #g00166627
-    #Begin: DTS2012053004986 by x00186870 2012/6/25 for security
     mkdir /data/sensor/
     chmod 0770 /data/sensor/
-    #End: DTS2012053004986 by x00186870 2012/6/25 for security
 
-    #j00179721
     mkdir /data/k3_camera/
     chmod 777 /data/k3_camera/
 
-    #j64722
     chmod 777 /dev/hiif_misc
     chmod 777 /dev/android_usb_enable
 
-    #s00107748
     chmod 777 /dev/k3_batterymisc
-    #kf29248
     chmod 777 /dev/spi3_hisipmu
 
-    #add for audio tool
     chmod 777 /dev/spi3_misc
     chmod 777 /system/bin/audioRegctl
     chmod 777 /proc/audioChannel/status
 
-    #add for audio acoustic test
     chmod 777 /proc/HiAcoustic/control
     chmod 777 /proc/HiAcoustic/threshold
-    #modify by wuxuecheng
 
-    # add by c126562 start
     mkdir /data/misc/wifi 0770 wifi wifi
     chown wifi wifi /data/misc/wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
@@ -119,23 +93,19 @@ on boot
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
     setprop wifi.interface wlan0
-    # add by c126562 end
 
     setprop ro.audio.analogMIC 1
     setprop ro.audio.dobuleMIC 1
     setprop ro.opengles.version 131072
 
-    #add by qizuyong KF23847, 2010-8-17
     chmod 777 /dev/video0
     chmod 777 /dev/hx170dec
     chmod 777 /dev/hx280enc
     chmod 777 /dev/memalloc
     chmod 777 /dev/gralloc_pmem
     chmod 777 /dev/camera_pmem
-    #OverlayCompose:
     chmod 777 /dev/overlay_pmem
 
-    #add by ykf63300 for video stablization, 2012-03-27
     chmod 666 /dev/akm8975_aot
     chmod 666 /dev/akm8975_dev
     chmod 664 /dev/input/event0
@@ -150,14 +120,8 @@ on boot
     chmod 664 /dev/input/event9
     chmod 664 /dev/input/event10
 
-    #add by j00140427 2011-12-15
     chmod 777 /dev/video19
 
-# Begine DTS2013031901630 delete by zhouhenglin 20130319
-#on boot1
-# End DTS2013031901630 delete by zhouhenglin 20130319
-
-    #add by c00166660 2011-12-16
     chmod 777 /dev/audience_es305
     chmod 777 /dev/tpa2028_l
     chmod 777 /dev/tpa2028_r
@@ -166,7 +130,6 @@ on boot
     chmod 777 /dev/boardid_dev
     chmod 777 /dev/ttyAMA2
 
-    #add by c58721
     chmod 777 /system/usr/keychars/h2w_headset.kcm.bin
     chmod 777 /system/usr/keychars/k3_keypad.kcm.bin
     chmod 777 /system/usr/keychars/qwerty2.kcm.bin
@@ -174,23 +137,14 @@ on boot
 
     chmod 777 /dev/rtc0
 
-    #add by d59977
-    #Begin: DTS2012053004986 by x00186870 2012/6/25 for security
     chmod 777 /dev/ttyAMA3
     chmod 0770 /data/gps/log
-    #DTS2012030904111 add for MDM upgrade begin , 2012-03-08
-    #add by c00183352
     chmod 777 /dev/ttyAMA1
-    #DTS00183352030801 add for MDM upgrade end , 2012-03-08
 
-    #add by w00187765
     mkdir /data/dumplog
     chmod 0770 /data/dumplog
 
     mkdir /cache/recovery 0770 system cache
-    #End: DTS2012053004986 by x00186870 2012/6/25 for security
-
-    #add by zhangxiaowei zkf26946
 
     chmod 777 /dev/cpu_maxprofile
     chmod 777 /dev/cpu_minprofile
@@ -210,69 +164,46 @@ on boot
     chmod 777 /dev/cpu_number_min
     chmod 777 /dev/ipps_policy
 
-# g00124340 change permissions for bluetooth
     #chmod 0660 /dev/ttyAMA4
     chmod 777 /dev/ttyAMA4
     chown bluetooth bluetooth /dev/ttyAMA4
 
-# g00124340 bluetooth power up/down interface
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
-    #chmod 0660 /sys/class/rfkill/rfkill0/state
     chmod 0774 /sys/class/rfkill/rfkill0/state
 
-# g00124340 bluesleep start/stop interface
     chown bluetooth bluetooth /proc/bluetooth/sleep/proto
     chmod 777 /proc/bluetooth/sleep/proto
 
-# zkf55108 2011/11/3 add begin
-    #lis3dhtr
     chown system system /sys/devices/platform/dw-i2c.0/i2c-0/0-0018/enable
     chown system system /sys/devices/platform/dw-i2c.0/i2c-0/0-0018/pollrate_ms
-    #adxl346
     chown system system /sys/devices/platform/dw-i2c.0/i2c-0/0-001c/enable
     chown system system /sys/devices/platform/dw-i2c.0/i2c-0/0-001c/pollrate_ms
-    #mma8452
     chown system system /sys/devices/platform/dw-i2c.0/i2c-0/0-0053/enable
     chown system system /sys/devices/platform/dw-i2c.0/i2c-0/0-0053/pollrate_ms
-    #l3g4200d
     chown system system /sys/devices/platform/dw-i2c.0/i2c-0/0-0068/enable_device
     chown system system /sys/devices/platform/dw-i2c.0/i2c-0/0-0068/pollrate_ms
     chown system system /sys/devices/platform/dw-i2c.0/i2c-0/0-0068/enable_selftest
     chown system system /sys/devices/platform/dw-i2c.0/i2c-0/0-0068/range
 
-    # Begin: DTS2012032302492 modified  by z00169095 20120323 for optimizing mmitest function  
     chown system system /sys/devices/platform/dw-i2c.0/i2c-0/0-0068/enable_selftest
-    # End: DTS2012032302492 modified  by z00169095 20120323 for optimizing mmitest function 
 
-#<DTS2012062900914 liucuiling add for add konix begin
-    #add kxtik
     chown system system /sys/devices/platform/dw-i2c.0/i2c-0/0-000f/enable
     chown system system /sys/devices/platform/dw-i2c.0/i2c-0/0-000f/pollrate_ms
-#<DTS2012062900914 liucuiling add for add konix end
 
-    #apds990x skf62518
     chown system system /sys/devices/platform/dw-i2c.0/i2c-0/0-0039/ps_enable
     chown system system /sys/devices/platform/dw-i2c.0/i2c-0/0-0039/enable_ps_sensor
     chown system system /sys/devices/platform/dw-i2c.0/i2c-0/0-0039/enable_als_sensor
     chown system system /sys/devices/platform/dw-i2c.0/i2c-0/0-0039/als_poll_delay
-# zkf55108 2011/11/3 add end
 
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_policy
-# z00181527 2012/04/10 add begin
-	chown system system /sys/devices/platform/k3_fb.196609/frc_state
-# z00181527 2012/04/10 add end
+    chown system system /sys/devices/platform/k3_fb.196609/frc_state
 
-# c00182334 2012/04/19 add begin
-        chown system system /sys/devices/platform/k3_fb.196609/sbl_lsensor_state
-# c00182334 2012/04/19 add end
+    chown system system /sys/devices/platform/k3_fb.196609/sbl_lsensor_state
 
-#Begin: DTS00186870021101 Modified by x00186870, 2012/2/11 for S10 Storage
-#<DTS00190626031601 begin: added by liucuiling l00190626 for add po188 light driver
     chown system system /sys/po188/delay_rate
     chown system system /sys/po188/light
 
-# kf62518 2012/03/07 begin
     chown system system /sys/devices/platform/huawei_sensor/acc_input
     chown system system /sys/devices/platform/huawei_sensor/akm_input
     chown system system /sys/devices/platform/huawei_sensor/als_input
@@ -281,17 +212,9 @@ on boot
     chown system system /sys/devices/platform/huawei_sensor/lightsensor
 
 
-# kf62518 end
-    # we will remap this as /mnt/sdcard with the sdcard fuse tool
-#DTS2012083100452 y00173682 20120831 modify the mount point to follow the J changes begin
-    #DTS2012080105006 y00173682 begin
     mkdir /data/share 0775 sdcard_rw sdcard_rw
     chown sdcard_rw sdcard_rw /data/share
-    #DTS2012080105006 y00173682 end
-#DTS2012083100452 y00173682 20120831 modify the mount point to follow the J changes end
 
-#Begin : DTS00186870040901 modified by x00186870 2012/4/9 for data floder */
-# add by z36904 for cts
     chown system system /sys/devices/platform/k3_hdmi.0/edid
     chown system system /sys/devices/platform/k3_hdmi.0/code
     chown system system /sys/devices/platform/k3_hdmi.0/s3d
@@ -306,26 +229,12 @@ on boot
     chown system system /sys/devices/platform/k3_hdmi.0/alledid
     chown system system /sys/devices/platform/k3_hdmi.0/audiosupport
     chown media system /sys/devices/platform/k3_hdmi.0/bufisfree
-    #BEGIN: DTS2012070605786 added by huyouhua/00136760 at 2012/07/06 for mhl debug log print control
     chown shell shell /sys/mhl_sii9244/log_en
-    #END: DTS2012070605786 added by huyouhua/00136760 at 2012/07/06 for mhl debug log print control
-    #BEGIN:DTS2012111504487 added by huyouhua/00136760 at 2012/11/23 for control pad output 5v power to mhl dongle
     chown system shell /sys/mhl_sii9244/close_power    
-    #END:DTS2012111504487 added by huyouhua/00136760 at 2012/11/23 for control pad output 5v power to mhl dongle
-    # < Begin: DTS2012101207734  yuwei(y00183897) added for s10 phone function, 2012/10/12> 
     chown radio system /sys/phone_status/status
-    # < End: DTS2012101207734  yuwei(y00183897) added for s10 phone function, 2012/10/12> 
 
-#End : DTS00186870040901 modified by x00186870 2012/4/9 for data floder */
-#<DTS00190626031601 end: added by liucuiling l00190626 for add po188 light driver
-
-# Begin: DTS2012061600142 added for enable/disable uevent by wangliping 00204546 2012-06-16
     chown system shell /sys/bus/i2c/devices/0-002c/enable_uevent
-# End: DTS2012061600142 added for enable/disable uevent by wangliping 00204546 2012-06-16
 
-#<DTS2012032600658 liucuiling add for switch between portrait and landscape begin
-#<DTS2012062900914 liucuiling add for add konix begin
-#DTS2013020506377 begin:l00220161 add for mma8452,20130205
 on property:persist.sys.coordinate=false
    write /sys/devices/platform/dw-i2c.0/i2c-0/0-0018/coordinate_acc   0
    write /sys/devices/platform/dw-i2c.0/i2c-0/0-000f/coordinate_acc   0
@@ -339,36 +248,20 @@ on property:persist.sys.coordinate=true
    write /sys/devices/platform/dw-i2c.0/i2c-0/0-0053/coordinate_acc   1
    write /sys/devices/platform/dw-i2c.0/i2c-0/0-001c/coordinate_acc   1
    write /sys/devices/platform/dw-i2c.0/i2c-0/0-0068/coordinate_gyro  1
-#DTS2013020506377 end:l00220161 add for mma8452,20130205
-#<DTS2012062900914 liucuiling add for add konix end
-#DTS2012032600658 liucuiling add for switch between portrait and landscape end>
 
-# Begin: DTS2012071905613 added by w00185945 20120726 for battery charge
 on property:sys.battery_charge=true
     write /sys/bus/platform/drivers/k3_psy_monitor/CEN_N   1
 
 on property:sys.battery_charge=false
     write /sys/bus/platform/drivers/k3_psy_monitor/CEN_N   0
-# End: DTS2012071905613 added by w00185945 20120726 for battery charge
 
-#Begin : DTS2012052900555 modified by x00186870 2012/5/29 for camera fail
-# create virtual SD card at /mnt/sdcard, based on the /data/share directory
-#DTS2012083100452 y00173682 20120831 modify the mount point to follow the J changes begin
-#service sdcard /system/bin/sdcard /data/share 1015 1015
-#    class main
-#DTS2012083100452 y00173682 20120831 modify the mount point to follow the J changes end 
-#End : DTS2012052900555 modified by x00186870 2012/5/29 for camera fail
-
-# Begin: DTS2012092803280 modified by j00165480 for wifidirect
 service wpa_supplicant /system/bin/wpa_supplicant -Dnl80211 -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
     class main
     user root
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
     oneshot
-# End: DTS2012092803280 modified by j00165480 for wifidirect
 
-# Begin: DTS2012092803280 modified by j00165480 for wifidirect
 service p2p_supplicant /system/bin/wpa_supplicant \
 	-iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -N \
 	-ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf -e/data/misc/wifi/entropy.bin -puse_p2p_group_interface=1
@@ -377,7 +270,6 @@ service p2p_supplicant /system/bin/wpa_supplicant \
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
     oneshot
-# End: DTS2012092803280 modified by j00165480 for wifidirect
 
 service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
     class main
@@ -408,7 +300,6 @@ service iprenew_bnep0 /system/bin/dhcpcd -n
     class main
     disabled
     oneshot
-#  add by c126562 end
 
 service pppd_gprs1 /system/bin/pppd call gprs1
    user root
@@ -428,18 +319,6 @@ service pppd_gprs3 /system/bin/pppd call gprs3
    disabled
    oneshot
 
-# g00124340 2011-09-19  add bcm4330 fm module begin
-
-# <DTS2012040904141 y00213813 2012/04/09 delete btla stack to ics begin
-#service btld /system/bin/btld
-#    root bluetooth system
-#    group bluetooth net_bt_admin system
-#    disabled
-# DTS2012040904141 y00213813 2012/04/09 delete btla stack to ics end>
-
-# g00124340 2011-09-19  add bcm4330 fm module end
-
-# g00124340 2011-09-19  add bcm4330 bluetooth power manager module begin
 service bcm_hciattach /system/bin/brcm_patchram_plus --enable_hci --enable_lpm --scopcm=0,1,0,0,0,0,0,0,0,0 --no2bytes --tosleep 50000 --use_baudrate_for_download --baudrate 3000000 --patchram /etc/bluetooth/BCM4330.hcd /dev/ttyAMA4
     user root
     group bluetooth net_bt_admin system
@@ -470,9 +349,7 @@ service chip_power_off /system/bin/sh /system/etc/bluetooth/init.bcm.chip_off.sh
     disabled
     oneshot
 
-# g00124340 2011-09-19  add bcm4330 power manager module end
 
-# g00124340 2011-12-22 add for blueooth bluesleep begin
 service bt_pm_on /system/bin/sh /system/etc/bluetooth/init.bcm.btpm_on.sh
     user root
     group system
@@ -484,28 +361,20 @@ service bt_pm_off /system/bin/sh /system/etc/bluetooth/init.bcm.btpm_off.sh
     group system
     disabled
     oneshot
-# g00124340 2011-12-22 add for bluetooth bluesleep end
 
-#add by d59977
 service gpsd  /system/bin/glgps -c /system/etc/gpsconfig.xml
     class main
     socket gps seqpacket 777 root root
     user root
     group root
 
-# zkf55108 2011/11/10 add begin
-#<DTS00190626030501 liucuiling modify for switch between portrait and landscape begin
 service akm8975 /system/bin/akm8975 -m 7
-#DTS00190626030501 liucuiling modify for switch between portrait and landscape end>
     class main
     user system
     disabled
     oneshot
-# zkf55108 2011/11/10 add end
 
 
-#/* <DTS2012091110433 for lcd sys added by z00168965, begin 2012/9/12 */
-#Begin: DTS2012032401089 added by b00183757 20120324 for power saving mode
 on property:persist.sys.color.enhance=true
         write /sys/bus/platform/drivers/mipi_panasonic_VVX10F002A00/set_cm_function 1
         write /sys/bus/platform/devices/k3_dev_lcd/set_cm_function 1
@@ -521,11 +390,7 @@ on property:persist.sys.cabc=true
 on property:persist.sys.cabc=false
         write /sys/bus/platform/drivers/mipi_panasonic_VVX10F002A00/set_cabc_function 0    
         write /sys/bus/platform/devices/k3_dev_lcd/set_cabc_function 0
-#End: DTS2012032401089 added by b00183757 20120324 for power saving mode
-#/* DTS2012091110433 for lcd sys added by z00168965, end 2012/9/12> */
 
-# <DTS2012040904141 y00213813 2012/04/09 add btla stack to ics begin
-# dhcp service for pan-nap/pan-u     
 service dhcpcd_brcm-pan /system/bin/dhcpcd -ABKL
 	class main
 	disabled
@@ -536,37 +401,28 @@ service iprenew_brcm-pan /system/bin/dhcpcd -n
 	disabled
 	oneshot
 
-# <DTS2012041605058 y00213813 2012/04/17 add FM snr parameter begin
 service btld /system/bin/logwrapper /system/bin/btld -lpm 1 -hb 3000000 -hp /dev/ttyAMA4 -snr 8
-# DTS2012041605058 y00213813 2012/04/17 add FM snr parameter end>
     user root
     group bluetooth net_bt_admin
     disabled
     oneshot
 
-# Begin: DTS2012101001040 added for voice version by wangliping 00204546 2012-10-10
 service btld-hfp /system/bin/logwrapper /system/bin/btld -lpm 1 -hb 3000000 -hp /dev/ttyAMA4 -snr 8 -hfp 1
     user root
     group bluetooth net_bt_admin
     disabled
     oneshot
-# End: DTS2012101001040 added for voice version by wangliping 00204546 2012-10-10
 
-# start btld if soft_onoff is enabled
 on property:service.brcm.bt.soft_onoff=1
     start btld
 
-# stop btld if soft_onoff is disabled
 on property:service.brcm.bt.soft_onoff=0
     stop btld
 
-#STOPSHIP: Remove logwrapper and -d option before production
 service bluetoothd /system/bin/logwrapper /system/bin/bluetoothd -d -n
     class main
     socket bluetooth stream 660 bluetooth bluetooth
     socket dbus_bluetooth stream 660 bluetooth bluetooth
-# init.rc does not yet support applying capabilities, so run as root and
-# let bluetoothd drop uid to bluetooth with the right linux capabilities
     group bluetooth net_bt_admin misc
     disabled
 
@@ -581,19 +437,9 @@ service kbluetoothd /system/bin/sh /system/etc/bluetooth/kill-bluetoothd.sh
 	group system bluetooth
 	disabled
 	oneshot
-# DTS2012040904141 y00213813 2012/04/09 add btla stack to ics end>
 
-
-# /*< DTS00179244020201 begin: added by caomingxing for usb switch 2012-02-02 >*/
-# here the usb configuration
-#import init.k3v2oem1.usb.rc
-# /*< DTS00179244020201 end: added by caomingxing for usb switch 2012-02-02 >*/
-# Begin: DTS2012031901454 modified by l00193108 20120319 for add BT TestMode
-# Begin: DTS2011062805841 added by w00185945 20110628 for add BT TestMode
 service testbt /system/bin/sh /system/etc/bttestmode.sh
     user root
     group root
     disabled
     oneshot
-# End: DTS2011062805841 added by w00185945 20110628 for add BT TestMode
-# End: DTS2012031901454 modified by l00193108 20120319 for add BT TestMode

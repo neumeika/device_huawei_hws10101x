@@ -18,7 +18,7 @@
 $(call inherit-product, vendor/cm/config/gsm.mk)
 
 # Release name
-PRODUCT_RELEASE_NAME := HWS10101X
+PRODUCT_RELEASE_NAME := HWS10101L
 
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
@@ -27,17 +27,17 @@ $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 $(call inherit-product, vendor/cm/config/common_full_tablet_wifionly.mk)
 
 # Inherit device configuration
-$(call inherit-product, device/huawei/hws10101x/full_hws10101x.mk)
+$(call inherit-product, device/huawei/hws10101l/full_hws10101l.mk)
 
 ## Device identifier. This must come after all inclusions
 
-PRODUCT_DEVICE := hws10101x
-PRODUCT_MODEL := hws10101x
-PRODUCT_NAME := cm_hws10101x
+PRODUCT_DEVICE := hws10101l
+PRODUCT_MODEL := hws10101l
+PRODUCT_NAME := cm_hws10101l
 PRODUCT_BRAND := huawei
 PRODUCT_MANUFACTURER := huawei
 
-PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=uhws10101x 
+PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=hws10101l 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
 # Allow ADB (to access dev settings)

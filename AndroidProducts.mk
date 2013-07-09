@@ -1,2 +1,2 @@
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/hws10101x.mk
+    $(LOCAL_DIR)/hws10101l.mk

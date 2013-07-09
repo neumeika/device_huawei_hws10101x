@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ifeq ($(TARGET_DEVICE),hws10101x)
+ifeq ($(TARGET_DEVICE),hws10101l)
 
 LOCAL_PATH := $(call my-dir)
 

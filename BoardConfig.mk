@@ -25,7 +25,7 @@ LOCAL_PATH:= $(call my-dir)
 
 # inherit from the proprietary version
 
--include vendor/huawei/hws10101x/BoardConfigVendor.mk
+-include vendor/huawei/hws10101l/BoardConfigVendor.mk
 
 
 # Huawei U9508 platform
@@ -57,15 +57,15 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 4294967296
 BOARD_CACHE_DEVICE := /dev/block/mmcblk0p15
 BOARD_CACHE_FILESYSTEM := ext4
 BOARD_FLASH_BLOCK_SIZE := 131072
-TARGET_PREBUILT_KERNEL := device/huawei/hws10101x/kernel
+TARGET_PREBUILT_KERNEL := device/huawei/hws10101l/zImage
 
 #Recovery
-TARGET_RECOVERY_INITRC := device/huawei/hws10101x/recovery/init.rc
-TARGET_RECOVERY_FSTAB := device/huawei/hws10101x/recovery/recovery.fstab
-BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun%d/file"
+TARGET_RECOVERY_INITRC := device/huawei/hws10101l/recovery/init.rc
+TARGET_RECOVERY_FSTAB := device/huawei/hws10101l/recovery/etc/recovery.fstab
+BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun/file"
 
 #Graphics
-BOARD_EGL_CFG := device/huawei/hws10101x/configs/egl.cfg
+BOARD_EGL_CFG := device/huawei/hws10101l/configs/egl.cfg
 USE_OPENGL_RENDERER := true
 
 # Probably is better without it
@@ -73,7 +73,7 @@ USE_OPENGL_RENDERER := true
 #BOARD_USES_HWCOMPOSER := true
 
 # Enable WEBGL in WebKit
-ENABLE_WEBGL := true
+ENABLE_WEBGL := false
 
 # Bootanimation
 TARGET_BOOTANIMATION_PRELOAD := true

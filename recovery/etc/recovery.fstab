@@ -1,0 +1,10 @@
+/mnt/sdcard2    vfat    /dev/block/platform/hi_mci.0/mmcblk1p1
+/system         ext4    /dev/block/mmcblk0p16
+/cache          ext4    /dev/block/mmcblk0p15
+/tmpdata        ext4    /dev/block/mmcblk0p18
+/misc           emmc    /dev/block/mmcblk0p4
+/boot           emmc    /dev/block/mmcblk0p11
+/recovery       emmc    /dev/block/mmcblk0p10
+/data           ext4    /dev/block/mmcblk0p22
+/cust           ext4    /dev/block/mmcblk0p17
+/vrcb           emmc    /dev/block/mmcblk0p8

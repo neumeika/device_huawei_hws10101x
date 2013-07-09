@@ -21,6 +21,6 @@
 # function: add_lunch_combo generic-eng
 
 
-add_lunch_combo full_hws10101x-eng
-add_lunch_combo full_hws10101x-userdebug
-add_lunch_combo full_hws10101x-user
+add_lunch_combo full_hws10101l-eng
+add_lunch_combo full_hws10101l-userdebug
+add_lunch_combo full_hws10101l-user
