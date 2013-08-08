@@ -4,7 +4,7 @@
 # This is a common source of Android security bugs.
 #
 
-import /init.${ro.hardware}.rc
+import /init.hws10101l.rc
 import /init.k3v2oem1.usb.rc
 #import /init.trace.rc
 
@@ -15,37 +15,59 @@ on early-init
 
     start ueventd
 
+# create mountpoints
     mkdir /mnt 0775 root system
+    #mkdir /mnt/sdcard 0000 system system //DTS2012090506938 deleted by y00173682 20120907
     mkdir /mnt/usb 0775 root system
-
 on init
 
 sysclktz 0
 
 loglevel 3
 
+# setup the global environment
+#Begin: DTS00186870021101 Modified by x00186870, 2012/2/11 for S10 Storage
     export PATH /sbin:/vendor/bin:/data/cust/bin:/system/sbin:/system/bin:/system/xbin
     export LD_LIBRARY_PATH /vendor/lib:/data/cust/lib:/system/lib:/data/datalib
     export ANDROID_BOOTLOGO 1
     export ANDROID_ROOT /system
     export ANDROID_ASSETS /system/app
     export ANDROID_DATA /data
+    #DTS2012083100452 w00181636 20121012 modify the mount point to follow the J changes begin
     export EXTERNAL_STORAGE /storage/sdcard0
+    #export EXTERNAL_STORAGE /mnt/sdcard
+     #DTS2012083100452 w00181636 20121012 modify the mount point to follow the J changes end
+#End  : DTS00186870021101 Modified by x00186870, 2012/2/11 for S10 Storage
     export ASEC_MOUNTPOINT /mnt/asec
     export LOOP_MOUNTPOINT /mnt/obb
+    # /* <DTS2012080203909 tiandazhang 20120802 begin */
+    # begin DTS2012102907086 add by h00186820 for dolby compile error in user mode 20121029
     export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/framework_ext.jar:/system/framework/hwframework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar
+    # end   DTS2012102907086 add by h00186820 for dolby compile error in user mode 20121029
+    # /* DTS2012080203909 tiandazhang 20120802 end> */
 
+# Backward compatibility
     symlink /system/etc /etc
     symlink /sys/kernel/debug /d
 
+# Right now vendor lives on the same filesystem as system,
+# but someday that may change.
     symlink /system/vendor /vendor
+    #DTS2012083100452 w00181636  modify the mount point to follow the J changes begin
+    #symlink /mnt/sdcard /sdcard
+    #DTS2012083100452 w00181636 20121012 modify the mount point to follow the J changes end
+#/* Begin: DTS2012120400562 Modified by x00186870, 2012/12/4 for multi partition */    
     mkdir /mnt/usb/usb1 0000 system system
     mkdir /mnt/usb/usb2 0000 system system
     mkdir /mnt/usb/usb3 0000 system system
     mkdir /mnt/usb/usb4 0000 system system
+#/* End: DTS2012120400562 Modified by x00186870, 2012/12/4 for multi partition */
     mkdir /mnt/tmp 0000 system system
+#/*DTS2012122800762 add by h84001865 2012/12/28 for cifs begin */
     mkdir /mnt/cifs 0775 system system
     mount tmpfs tmpfs /mnt/cifs mode=0775,gid=1000
+#/*DTS2012122800762 add by h84001865 2012/12/28 for cifs end */
+# Create cgroup mount point for cpu accounting
     mkdir /acct
     mount cgroup none /acct cpuacct
     mkdir /acct/uid
@@ -53,48 +75,68 @@ loglevel 3
     mkdir /system
     mkdir /data 0771 system system
 
+#/* BEGIN: DTS00186870020401 Added by x00186870, 2012/2/4 */
     mkdir /tmpdata 0771 system system
+#/* END: DTS00186870020401 Added by x00186870, 2012/2/4 */
 
     mkdir /cache 0770 system cache
     mkdir /config 0500 root root
 
+    #DTS2011122804252 z00192785 2011-12-29 begin
     mkdir /cust
+    #DTS2011122804252 z00192785 2011-12-29 end
 
     mkdir /modem
     mkdir /modem/modem_image
     mkdir /modem/nvm1
     mkdir /modem/nvm2
 
+    # Directory for putting things only root should see.
     mkdir /mnt/secure 0700 root root
 
+    # Directory for staging bindmounts
     mkdir /mnt/secure/staging 0700 root root
 
+    # Directory-target for where the secure container
+    # imagefile directory will be bind-mounted
     mkdir /mnt/secure/asec  0700 root root
 
+    # Secure container public mount points.
     mkdir /mnt/asec  0700 root system
     mount tmpfs tmpfs /mnt/asec mode=0755,gid=1000
 
+    # Filesystem image public mount points.
     mkdir /mnt/obb 0700 root system
     mount tmpfs tmpfs /mnt/obb mode=0755,gid=1000
 
     write /proc/sys/kernel/panic_on_oops 1
     write /proc/sys/kernel/hung_task_timeout_secs 0
+	#DTS2012092502136 modify by kf74453 begin
+	#write /proc/cpu/alignment 4
+	#DTS2012092502136 modify by kf74453 end
     write /proc/sys/kernel/sched_latency_ns 10000000
     write /proc/sys/kernel/sched_wakeup_granularity_ns 2000000
     write /proc/sys/kernel/sched_compat_yield 1
     write /proc/sys/kernel/sched_child_runs_first 0
+#/* BEGIN: DTS00176579032801 Modified by w00176579, 2012/03/28 */
+    #<DTS2012060605218   added by c00183352 change usb autosuspend from 8s to 16s when AP upgrade MODEM begin, 2012-06-05 	
     chmod 0664 /sys/module/usbcore/parameters/autosuspend
     chown root radio /sys/module/usbcore/parameters/autosuspend
     write /sys/module/usbcore/parameters/autosuspend 2
+    #DTS2012060605218   added by c00183352 change usb autosuspend from 8s to 16s when AP upgrade MODEM end, 2012-06-05>
+#/* End: DTS00176579032801 Modified by w00176579, 2012/03/28 */
+#/* BEGIN: DTS2012111701741  Modified by c00217097 for mass_storage and Hisuite Switch when SDcard is Insert, 2012/12/08 */
     chmod 0664 /sys/class/android_usb/f_mass_storage/suitestate
     chown system system /sys/class/android_usb/f_mass_storage/suitestate
+#/* End: DTS2012111701741  Modified by c00217097 for mass_storage and Hisuite Switch when SDcard is Insert, 2012/12/08 */    
     write /proc/sys/kernel/randomize_va_space 2
     write /proc/sys/kernel/kptr_restrict 2
-    write /proc/sys/kernel/dmesg_restrict 0
+    write /proc/sys/kernel/dmesg_restrict 1
     write /proc/sys/vm/mmap_min_addr 32768
     write /proc/sys/kernel/sched_rt_runtime_us 950000
     write /proc/sys/kernel/sched_rt_period_us 1000000
 
+# Create cgroup mount points for process groups
     mkdir /dev/cpuctl
     mount cgroup none /dev/cpuctl cpu
     chown system system /dev/cpuctl
@@ -119,70 +161,48 @@ loglevel 3
     write /dev/cpuctl/apps/bg_non_interactive/cpu.rt_runtime_us 700000
     write /dev/cpuctl/apps/bg_non_interactive/cpu.rt_period_us 1000000
 
+# Allow everybody to read the xt_qtaguid resource tracking misc dev.
+# This is needed by any process that uses socket tagging.
     chmod 0644 /dev/xt_qtaguid
     chmod 777 /dev/graphics/fb0
     chmod 777 /dev/graphics/galcore
     
     write /sys/module/block2mtd/parameters/block2mtd /dev/block/mmcblk0p3
     
+    # change nve device visit permission
     wait /dev/nve0
     chmod 0777 /dev/nve0
 on fs
-    chmod 444 /sys/bus/i2c/devices/1-0025/accessory_status
+# mount mtd partitions
+    # Mount /system rw first to give the filesystem a chance to save a checkpoint
 
+    chmod 444 /sys/bus/i2c/devices/1-0025/accessory_status
+    wait /dev/block/mmcblk0p16
     mount ext4 /dev/block/mmcblk0p16 /system
+    mount ext4 /dev/block/mmcblk0p16 /system ro remount
+    
+    wait /dev/block/mmcblk0p15
+    exec /system/bin/e2fsck -y -f /dev/block/mmcblk0p15
     mount ext4 /dev/block/mmcblk0p15 /cache
+    
+    wait /dev/block/mmcblk0p18
+    exec /system/bin/e2fsck -y -f /dev/block/mmcblk0p18
+    mount ext4 /dev/block/mmcblk0p18 /tmpdata nosuid nodev noatime wait crypt discard,noauto_da_alloc,mblk_io_submit,data=writeback,commit=20,barrier=0
+
+    mount ext4 /dev/block/mmcblk0p12 /modem/modem_image
+    mount ext4 /dev/block/mmcblk0p13 /modem/nvm1
+    mount ext4 /dev/block/mmcblk0p14 /modem/nvm2
+    mount ext4 /dev/block/mmcblk0p17 /cust ro barrier=1
 
     wait /dev/block/mmcblk0p22
     exec /system/bin/e2fsck -p /dev/block/mmcblk0p22
-    mount ext4 /dev/block/mmcblk0p22 /data nosuid nodev noatime wait crypt discard,noauto_da_alloc,mblk_io_submit,data=writeback,commit=20,barrier=0
+    mount ext4 /dev/block/mmcblk0p22 /data nosuid nodev noatime wait crypt discard,noauto_da_alloc,mblk_io_submit,data=writeback,commit=20,barrier=1
 
-
-    wait /dev/block/mmcblk0p18
-    exec /system/bin/e2fsck -p /dev/block/mmcblk0p18
-    mount ext4 /dev/block/mmcblk0p18 /tmpdata nosuid nodev noatime wait crypt discard,noauto_da_alloc,mblk_io_submit,data=writeback,commit=20,barrier=0
-
-#    exec /system/bin/e2fsck -y -f /dev/block/mmcblk0p15
-#/*End: DTS2012060709351 added by z00175749 for mounting cache fail*/
-#/*Begin: DTS2012110704192 Modified by c00217097, 2012/11/07 for  mmc@devicename mode  replacement full devices mode*/
-#    mount ext4 mmc@cache /cache
-#/*End: DTS2012110704192 Modified by c00217097, 2012/11/07 for  mmc@devicename mode  replacement full devices mode*/
-#/* BEGIN: DTS00186870020401 Modified by x00186870, 2012/2/4 */
-#/*Begin: DTS2012110704192 Modified by c00217097, 2012/11/07 for  mmc@devicename mode  replacement full devices mode*/
-#    mount ext4 mmc@userdata /tmpdata nosuid nodev noatime wait crypt discard,noauto_da_alloc,mblk_io_submit,data=writeback,commit=20,barrier=0
-#/*End: DTS2012110704192 Modified by c00217097, 2012/11/07 for  mmc@devicename mode  replacement full devices mode*/
-#/* END: DTS00186870020401 Modified by x00186870, 2012/2/4 */
-
-#/*BEGIN DTS00186870040501 added by x00186870 for removing the app data and reserving user data 20120326 */
-#    wait /dev/block/mmcblk0p22
-#    exec /system/bin/e2fsck -y -f /dev/block/mmcblk0p22
-#/*End DTS00186870040501 added by x00186870 for removing the app data and reserving user data 20120326 */
-#/*End: DTS2012042307464 modified by x00186870 2012/4/23 for 2G partition */
-    #DTS2011122804252 z00192785 2011-12-29 begin
-    #mount ext4 /dev/block/mmcblk0p17 /cust wait ro
-    #DTS2011122804252 z00192785 2011-12-29 end
-#/*Begin: DTS2012110704192 Modified by c00217097, 2012/11/07 for  mmc@devicename mode  replacement full devices mode*/
-    mount ext4 mmc@modemimage /modem/modem_image
-    mount ext4 mmc@modemnv /modem/nvm1
-#/*End: DTS2012110704192 Modified by c00217097, 2012/11/07 for  mmc@devicename mode  replacement full devices mode*/
-#/* Begin: DTS2012052204036 deleted by z00175749, 2012/5/29 for boot time */ 
-#/*Begin: DTS2012121206147 modify by c00217097 for balong flashless modem*/
-   mount ext4 mmc@modemnv2 /modem/nvm2
-#/*End: DTS2012121206147 modify by c00217097 for balong flashless modem*/   
-#/* End: DTS2012052204036 deleted by z00175749, 2012/5/29 for boot time */ 
-
-#/* Begin: DTS00186870030201 added by x00186870 20120302 for add cust partiton */
-#/*Begin: DTS2012110704192 Modified by c00217097, 2012/11/07 for  mmc@devicename mode  replacement full devices mode*/
-    mount ext4 mmc@cust /cust ro barrier=1
-#/*End: DTS2012110704192 Modified by c00217097, 2012/11/07 for  mmc@devicename mode  replacement full devices mode*/
-#/* End: DTS00186870030201 added by x00186870 20120302 for add cust partiton */
 
 # /*< DTS00179244020201 begin: added by caomingxing for usb switch 2012-02-02 >*/
 # We chown/chmod /system/etc again so because mount is run as root + defaults  
     chown root root /system/etc
     chmod 0777 /system/etc
-    chown root root /system/etc/cd.iso
-    chmod 0777 /system/etc/cd.iso
 # /*< DTS00179244020201 end: added by caomingxing for usb switch 2012-02-02 >*/
 
 #  DTS2012051102358 begin: added by c00181104 for cts test failed 2012-05-11 
@@ -293,14 +313,10 @@ on fs
 #/*End: DTS2012121206147 modify by c00217097 for balong flashless modem*/
 
 on emmc-fs
-#/*Begin: DTS2012042307464 modified by x00186870 2012/4/23 for 2G partition */
-#/*Begin: DTS2012110704192 Modified by c00217097, 2012/11/07 for  mmc@devicename mode  replacement full devices mode*/
-    mount ext4 mmc@data /data nosuid nodev noatime wait crypt discard,noauto_da_alloc,mblk_io_submit,data=writeback,commit=20,barrier=1
-#/*End: DTS2012110704192 Modified by c00217097, 2012/11/07 for  mmc@devicename mode  replacement full devices mode*/
+    wait /dev/block/mmcblk0p22
+    exec /system/bin/e2fsck -p /dev/block/mmcblk0p22
+    mount ext4 /dev/block/mmcblk0p22 /data nosuid nodev noatime wait crypt discard,noauto_da_alloc,mblk_io_submit,data=writeback,commit=20,barrier=1
 
-#/*End: DTS2012042307464 modified by x00186870 2012/4/23 for 2G partition */
-
-#/* Begin: DTS00186870040901 delete by x00186870 2012/4/9 for data floder  */
 on post-fs
 #/* Begin: DTS00186870021101 Modified by x00186870, 2012/2/11 for S10 Storage*/
     chown system system /tmpdata
@@ -420,7 +436,6 @@ on post-fs-data
 
     # create dalvik-cache, so as to enforce our permissions
     mkdir /data/dalvik-cache 0771 system system
-    mkdir /cache/dalvik-cache 0771 system system
 
     # create resource-cache and double-check the perms
     mkdir /data/resource-cache 0771 system system
@@ -1011,6 +1026,12 @@ on property:sys.lteom.config_sd=NOSD
     stop OM_SD
 #/*End:DTS2012092400839 added by wangnanjie 20120927 for lte log*/
 #/*< DTS2012092400839 end: added by h00197677 for LTE OM debug function of Modem 2012-09-24 >*/
+
+on property:persist.sys.hw.logswitch=1
+    write /proc/sys/kernel/dmesg_restrict 0
+
+on property:persist.sys.hw.logswitch=0
+    write /proc/sys/kernel/dmesg_restrict 1
 
 #Begin: DTS2012092700269 added by f00214424 20121010 for usb network adapter
 service dhcpcd_eth0 /system/bin/dhcpcd -BKLG

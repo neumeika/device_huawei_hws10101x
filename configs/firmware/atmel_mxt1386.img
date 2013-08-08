@@ -1,0 +1,49 @@
+#************************************************************************************************************
+#************************************************************************************************************
+# File of maxtouch IC configuration upgrade, by Yaobing Li, liyaobing@huawei.com                           **
+# the idea is to pack all objects data into a text file. data is orgnized in format of object by object.   ** 
+# Two bytes are added at the begining of each object. First one is TYPE of this object, 2nd one is number  **  
+# of data of this object in byte.                                                                          **
+# Host application just simply reads the file, recognize the TYPE, and read number of data indicated by    **
+# following byte. With the information of START_ADDRESS of each object read from maxtouch IC during        **
+# initialization stage, host application can easily write related data into corresponding object           **
+# configuration zone. After all objects are written, host application sends BACKUP command, followed       **
+# by a RESET command after waiting for 20 millisecond so that IC can write configuration data into device  **
+# EEPROM. the formation of this config file as followly:                                                   **
+#  (1) all of characters is valid in rows beginning with annotation ¡®#¡¯                                  **
+#  (2) only character of ['0'¡«'9'¡¢'a'¡«'f'¡¢'A'¡«'F'¡¢''¡¢\t] is valid in rows beginning with            **
+#      non-annotation ¡®#¡¯                                                                                **
+#  (3) config data must be two-character hexadecimal character with no 0x as it's leader character.        **
+#      for example, "01" "12" "1f" "1F" is valid config data,but "0x01" "1" "f" is invalid config data     ** 
+#  (4) in rows of config data £¬the first data is TYPE of this object£¬the second data is number of        **
+#      config data of this object in byte. the number of config data followlly this data must be equal     **
+#      with it£¬otherwise erro will occur .                                                                **
+#revision list :                                                                                           **
+#  (1) file be created for mxt1386 atmel touchscreen by leyihua 2012/02/28																 **
+#************************************************************************************************************
+#************************************************************************************************************
+
+#GEN_POWERCONFIG_T7 
+07 03 ff ff 41
+#GEN_ACQUISITIONCONFIG_T8
+08 0a 0a 00 14 0a 00 00 01 32 30 28
+#TOUCH_MULTITOUCHSCREEN_T9
+09 22 8f 00 00 21 2a 00 10 37 03 01 00 0a 05 30 0a 00 00 00 af 04 7f 07 00 00 00 00 40 00 40 00 0f 12 00 00
+#TOUCH_KEYARRAY_T15
+0f 0b 00 00 00 00 00 00 00 00 00 00 00
+#SPT_COMCONFIG_T18
+12 02 00 00
+#PROCG_NOISESUPPRESSION_T22
+16 11 05 00 00 00 00 00 00 00 19 00 00 00 0a 14 23 32 00
+#PROCI_ONETOUCHGESTUREPROCESSOR_T24
+18 13 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+#SPT_SELFTEST_T25
+19 0e 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+#PROCI_TWOTOUCHGESTUREPROCESSOR_T27
+1b 07 00 00 00 00 00 00 00
+#SPT_CTECONFIG_T28
+1c 06 00 00 00 00 00 00
+#SPT_USERDATA_T38
+26 40 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+#PROCI_GRIPSUPPRESSION_T40
+28 05 00 00 00 00 00

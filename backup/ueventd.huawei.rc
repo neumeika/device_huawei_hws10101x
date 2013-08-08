@@ -1,0 +1,27 @@
+
+# for Sensor HAL
+#/dev/lsm303dlh_acc        0660   system     system
+#/dev/lsm303dlh_mag        0660   system     system
+/dev/akm8975_aot	  0660   system     system
+/dev/akm8975_dev	  0660   system     system
+
+# for Radio
+
+/dev/ttyUSB1              0777   root       root
+/dev/ttyUSB0              0777   root       root
+#DTS2012030904111 add for MDM upgrade begin , 2012-03-08
+/dev/ttyUSB4              0777   root       root
+#DTS2012030904111 add for MDM upgrade end , 2012-03-08
+/dev/ttyACM0              0777   root       root
+/dev/ttyACM1              0777   root       root
+/dev/ttyACM2              0777   root       root
+/dev/ttyACM3              0777   root       root
+#/*Begin: DTS2012121206147 modify by c00217097 for balong flashless modem*/
+/dev/ttyUSB9              0777   root       root
+/dev/ttyUSB14             0660   radio       radio
+/dev/mux_balong4          0640   system     system
+#/*End: DTS2012121206147 modify by c00217097 for balong flashless modem*/
+#DTS2012010701178    huohua   2012/01/07  modify for dynamic gamma begin
+# for LCD_tuning
+/dev/pri_lcd              0666   system     system
+#DTS2012010701178    huohua   2012/01/07  modify for dynamic gamma end

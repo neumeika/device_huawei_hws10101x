@@ -37,8 +37,8 @@ TARGET_ARCH_VARIANT := armv7-a
 TARGET_ARCH_VARIANT_CPU := cortex-a9
 ARCH_ARM_HAVE_TLS_REGISTER := true
 BOARD_KERNEL_CMDLINE := console=ttyS0 k3v2_pmem=1 vmalloc=512M androidboot.hardware=hws10101l mmcparts=mmcblk0:p1(xloader),p3(nvme),p4(misc),p5(splash),p6(oeminfo),p7(logo),p8(vrcb),p9(recovery2),p10(recovery),p11(boot),p12(modemimage),p13(modemnv),p14(modemnvm2),p15(cache),p16(system),p17(cust),p18(userdata),p19(reserve1),p20(reserve2),p21(reserve3),p22(data);mmcblk1:p1(sdcard2)
-BOARD_KERNEL_PAGESIZE := 2048 
-BOARD_KERNEL_BASE := 0x00000000
+BOARD_KERNEL_PAGESIZE := 2048
+BOARD_KERNEL_BASE := 0x8000
 
 # Recovery
 BOARD_HAS_NO_SELECT_BUTTON := true
@@ -48,14 +48,18 @@ BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
 TARGET_USERIMAGES_USE_EXT4 := true
+
 BOARD_SYSTEM_DEVICE := /dev/block/mmcblk0p16
 BOARD_SYSTEM_FILESYSTEM := ext4
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 536870912
+
 BOARD_DATA_DEVICE := /dev/block/mmcblk0p22
 BOARD_DATA_FILESYSTEM := ext4
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 4294967296
+
 BOARD_CACHE_DEVICE := /dev/block/mmcblk0p15
 BOARD_CACHE_FILESYSTEM := ext4
+
 BOARD_FLASH_BLOCK_SIZE := 131072
 TARGET_PREBUILT_KERNEL := device/huawei/hws10101l/zImage
 

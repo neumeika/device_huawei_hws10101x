@@ -18,11 +18,13 @@
 #	init.qcom.sh
 
 bluetoothscripts := \
-	init.bcm.chip_on.sh \
-	init.bcm.chip_off.sh \
+	init.bcm.btpm_off.sh \
+        init.bcm.btpm_on.sh \
 	init.bcm.bt.sh \
-	init.bcm.btpm_on.sh \
-	init.bcm.btpm_off.sh
+	init.bcm.chip_off.sh \
+	init.bcm.chip_on.sh \
+	kill-bluetoothd.sh \
+	kill-btld.sh
 
 
 #PRODUCT_COPY_FILES += $(foreach file,$(rootscripts),\

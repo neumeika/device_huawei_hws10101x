@@ -1,4 +1,5 @@
-/mnt/sdcard2    vfat    /dev/block/platform/hi_mci.0/mmcblk1p1
+# mount point	fstype		device
+/sdcard    vfat    /dev/block/platform/hi_mci.0/mmcblk1p1
 /system         ext4    /dev/block/mmcblk0p16
 /cache          ext4    /dev/block/mmcblk0p15
 /tmpdata        ext4    /dev/block/mmcblk0p18

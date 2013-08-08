@@ -2,22 +2,28 @@ on early-init
     start ueventd
 
 on init
+    export PATH /sbin
     export PATH /sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
     export LD_LIBRARY_PATH /vendor/lib:/system/lib
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
+    #/*Begin:DTS2012101902063 modify by z81003560 update Upgrade-system to JellyBean,20121019*/
     export EXTERNAL_STORAGE /mnt/sdcard2
+    #/*End:DTS2012101902063 modify by z81003560 update Upgrade-system to JellyBean,20121019*/
     export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar:/system/framework/filterfw.jar
 
     symlink /system/etc /etc
 
+# Right now vendor lives on the same filesystem as system,
+# but someday that may change.
     symlink /system/vendor /vendor
+/*Begin:DTS2012101902063 modify by z81003560 update Upgrade-system to JellyBean,20121019*/
     mkdir /mnt
     mkdir /mnt/sdcard2
 
     mkdir /system
     mkdir /data
-
+    
     mkdir /modem  0777 root root
     mkdir /modem/modem_image  0777 root root
     mkdir /modem/nvm1  0777 root root
@@ -30,14 +36,18 @@ on init
     # change nve device visit permission
     wait /dev/nve0
     chmod 0777 /dev/nve0
-
+    
 on fs
     mount ext4 /dev/block/mmcblk0p16 /system
     mount ext4 /dev/block/mmcblk0p16 /system rw remount
-    start vold
-    mount ext4 /dev/block/mmcblk0p15 /cache
-    mount vfat /dev/block/platform/hi_mci.0/mmcblk1p1 /mnt/sdcard2
 
+  # Begin DTS2012120303107  Added by c00217097 for encrypt function, 2012/11/30
+    start vold
+  # End DTS2012120303107  Added by c00217097 for encrypt function, 2012/11/30
+    mount ext4 /dev/block/mmcblk0p15 /cache
+    
+    mkdir /sdcard
+    mount vfat /dev/block/platform/hi_mci.0/mmcblk1p1 /mnt/sdcard2
 
     mount ext4 /dev/block/mmcblk0p12 /modem/modem_image
     mount ext4 /dev/block/mmcblk0p13 /modem/nvm1
@@ -194,7 +204,9 @@ service ueventd /sbin/ueventd
 
 service recovery /sbin/recovery
 
+# DTS2011082903260  r00186667 2011/08/30 added begin
 service chargeservice /sbin/chargeservice
+# DTS2011082903260  r00186667 2011/08/30 added end
 service adbd /sbin/adbd recovery
     disabled
 

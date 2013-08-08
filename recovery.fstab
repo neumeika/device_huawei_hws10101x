@@ -1,8 +1,5 @@
-#/*DTS2012030804004 modify by z81003560, begin 2012/3/8*/
-# mount point	fstype		device
-#/*DTS2012032101305 modify by z81003560 for HOTA and GOTA upgrade, begin 2012/3/21*/
-#/*Begin: DTS2012051506239 modify by z81003560 for dynamically adjust partition table, 2012/5/15*/
-/mnt/sdcard2    vfat    /dev/block/platform/hi_mci.0/mmcblk1p1
+# mount point	fstype	device
+sdcard    	vfat    /dev/block/platform/hi_mci.0/mmcblk1p1
 /system         ext4    /dev/block/mmcblk0p16
 /cache          ext4    /dev/block/mmcblk0p15
 /tmpdata        ext4    /dev/block/mmcblk0p18
@@ -11,8 +8,4 @@
 /recovery       emmc    /dev/block/mmcblk0p10
 /data           ext4    /dev/block/mmcblk0p22
 /cust           ext4    /dev/block/mmcblk0p17
-#DTS00061538022201 added 
 /vrcb           emmc    /dev/block/mmcblk0p8
-#/*End: DTS2012051506239 modify by z81003560 for dynamically adjust partition table, 2012/5/15*/
-#/*DTS2012032101305 modify by z81003560 for HOTA and GOTA upgrade, end 2012/3/21*/
-#/*DTS2012030804004 modify by z81003560, end 2012/3/8*/

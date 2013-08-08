@@ -59,20 +59,20 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/boot/ueventd.rc:root/ueventd.rc
 
 # Install the features available on this device.
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/permissions/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
-    $(LOCAL_PATH)/permissions/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
-    $(LOCAL_PATH)/permissions/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
-    $(LOCAL_PATH)/permissions/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-    $(LOCAL_PATH)/permissions/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
-    $(LOCAL_PATH)/permissions/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-    $(LOCAL_PATH)/permissions/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
-    $(LOCAL_PATH)/permissions/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
-    $(LOCAL_PATH)/permissions/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
-    $(LOCAL_PATH)/permissions/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
-    $(LOCAL_PATH)/permissions/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
-   $(LOCAL_PATH)/permissions/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-    $(LOCAL_PATH)/permissions/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml 
+#PRODUCT_COPY_FILES += \
+#    $(LOCAL_PATH)/permissions/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
+#    $(LOCAL_PATH)/permissions/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+#    $(LOCAL_PATH)/permissions/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
+#    $(LOCAL_PATH)/permissions/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
+#    $(LOCAL_PATH)/permissions/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
+#    $(LOCAL_PATH)/permissions/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+#    $(LOCAL_PATH)/permissions/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
+#    $(LOCAL_PATH)/permissions/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
+#    $(LOCAL_PATH)/permissions/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
+#    $(LOCAL_PATH)/permissions/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
+#    $(LOCAL_PATH)/permissions/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
+#   $(LOCAL_PATH)/permissions/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+#    $(LOCAL_PATH)/permissions/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml 
 
 # Include keyboards
 $(call inherit-product-if-exists, device/huawei/hws10101l/keyboards/keyboards.mk)
@@ -80,9 +80,9 @@ $(call inherit-product-if-exists, device/huawei/hws10101l/keyboards/keyboards.mk
 # packages
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
-    Camera \
     com.android.future.usb.accessory \
-    Torch 
+    Torch \
+#    Camera 
 
 # HAL
 PRODUCT_PACKAGES += \
@@ -111,10 +111,10 @@ PRODUCT_PACKAGES += \
     SpareParts \
     Term \
     librs_jni \
-	CMFileManager\
-	Superuser\
+    CMFileManager\
+    Superuser\
     libOmxCore \
-    libOmxVdec 
+    libOmxVdec
 
 # mount points SDCARDS
 PRODUCT_COPY_FILES += \
@@ -123,8 +123,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/external_sd.fstab:system/etc/external_sd.fstab
 
 #video
-PRODUCT_COPY_FILES += \
-	 $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
+# PRODUCT_COPY_FILES += 
+#	 $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
 
 # Audio
 #PRODUCT_COPY_FILES += \
